@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Si Estamos Juntos — Cuaderno de Rodaje & Prompts</title>
+  <style>
+    :root {
+      --bg: #0f1416;
+      --card-bg: #182024;
+      --accent: #2e8b57;
+      --accent-warm: #d97706;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --border: #263339;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+    .container { max-width: 1100px; margin: 0 auto; }
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+    }
+    h1 { font-size: 2.2rem; color: #fff; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--accent-warm); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
+    .meta-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem;
+      margin: 1.5rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: space-around;
+      font-size: 0.95rem;
+    }
+    .meta-item strong { color: var(--text-muted); display: block; font-size: 0.8rem; text-transform: uppercase; }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .media-container {
+      width: 100%;
+      height: 190px;
+      background: #090d0e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      overflow: hidden;
+    }
+    .media-container img, .media-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .card-content { padding: 1.2rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .scene-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .scene-num { font-weight: 700; color: var(--accent-warm); font-size: 1rem; }
+    .timestamp { background: var(--border); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-family: monospace; }
+    .lyrics { font-style: italic; color: #f1f5f9; margin-bottom: 0.75rem; font-size: 0.9rem; border-left: 3px solid var(--accent); padding-left: 0.6rem; }
+    .action { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; }
+    
+    .prompt-box {
+      margin-top: auto;
+      background: #090d0e;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem;
+      position: relative;
+    }
+    .prompt-text {
+      font-size: 0.78rem;
+      color: #93c5fd;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 80px;
+      overflow-y: auto;
+      margin-bottom: 0.5rem;
+    }
+    .btn-copy {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-copy:hover { opacity: 0.9; }
+    .btn-copy.copied { background: var(--accent-warm); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <span class="subtitle">Cuaderno de Producción Audiovisual</span>
+      <h1>Si Estamos Juntos</h1>
+      <p style="color: var(--text-muted);">Reservorio de tomas, prompts cinematográficos y material de pre-edición</p>
+
+      <div class="meta-box">
+        <div class="meta-item"><strong>Duración</strong> 60 Segundos (1:00)</div>
+        <div class="meta-item"><strong>Estilo</strong> Cinematográfico 35mm / Cálido</div>
+        <div class="meta-item"><strong>Locación</strong> Campamento en bosque & río (Argentina)</div>
+        <div class="meta-item"><strong>Herramientas</strong> ElevenLabs + Runway / Kling / Minimax</div>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- TOMA 1 -->
+      <div class="card">
+        <div class="media-container">
+          <img src="assets/toma1.jpg" alt="Toma 1" onerror="this.parentNode.innerHTML='<span>Toma 1: Preview Pendiente</span>'">
+        </div>
+        <div class="card-content">
+          <div class="scene-header">
+            <span class="scene-num">Toma 01: Amanecer</span>
+            <span class="timestamp">0:00 - 0:08</span>
+          </div>
+          <div class="lyrics">"Intro instrumental..."</div>
+          <div class="action">Chicos con mochilas llegando al claro junto al río con luz matinal suave entre sauces y pinos.</div>
+          <div class="prompt-box">
+            <div class="prompt-text" id="p1">Cinematic warm golden hour lighting, slow tracking shot of diverse Argentine kids aged 8 to 11 hiking through a lush riverside woodland in Argentina, backpacks, sparkling calm river in background, 35mm film look, 4k.</div>
+            <button class="btn-copy" onclick="copyPrompt('p1', this)">Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOMA 2 -->
+      <div class="card">
+        <div class="media-container">
+          <img src="assets/toma2.jpg" alt="Toma 2" onerror="this.parentNode.innerHTML='<span>Toma 2: Preview Pendiente</span>'">
+        </div>
+        <div class="card-content">
+          <div class="scene-header">
+            <span class="scene-num">Toma 02: La Carpa</span>
+            <span class="timestamp">0:08 - 0:16</span>
+          </div>
+          <div class="lyrics">"Si estamos juntos, todo es mejor..."</div>
+          <div class="action">Dos amigos terminando de asegurar una carpa iglú verde sobre el pasto y chocándose las manos contentos.</div>
+          <div class="prompt-box">
+            <div class="prompt-text" id="p2">Medium cinematic shot of two young Argentine friends setting up a green camping tent on the grass by a riverbank, laughing and giving each other a high-five, natural daylight, soft wind, shallow depth of field.</div>
+            <button class="btn-copy" onclick="copyPrompt('p2', this)">Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOMA 3 -->
+      <div class="card">
+        <div class="media-container">
+          <img src="assets/toma3.jpg" alt="Toma 3" onerror="this.parentNode.innerHTML='<span>Toma 3: Preview Pendiente</span>'">
+        </div>
+        <div class="card-content">
+          <div class="scene-header">
+            <span class="scene-num">Toma 03: El Alfajor</span>
+            <span class="timestamp">0:16 - 0:26</span>
+          </div>
+          <div class="lyrics">"Si estamos juntos, te doy mi alfajor, oh oh..."</div>
+          <div class="action">Un nene le ofrece su alfajor a su amiga; ella sonríe y saca el mismo de su mochila, riéndose juntos.</div>
+          <div class="prompt-box">
+            <div class="prompt-text" id="p3">Cinematic medium shot, warm sunlight at an Argentine riverside campsite. An Argentine boy hands a classic chocolate alfajor to a smiling girl on a log. She happily unzips her backpack, pulls out the exact same alfajor, both laugh genuinely, 35mm film aesthetic.</div>
+            <button class="btn-copy" onclick="copyPrompt('p3', this)">Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOMA 4 -->
+      <div class="card">
+        <div class="media-container">
+          <img src="assets/toma4.jpg" alt="Toma 4" onerror="this.parentNode.innerHTML='<span>Toma 4: Preview Pendiente</span>'">
+        </div>
+        <div class="card-content">
+          <div class="scene-header">
+            <span class="scene-num">Toma 04: Al Río</span>
+            <span class="timestamp">0:26 - 0:34</span>
+          </div>
+          <div class="lyrics">"Al aire libre..." (Entran palmas)</div>
+          <div class="action">Los chicos corriendo descalzos hacia la orilla del agua con sol pleno y energía desbordante.</div>
+          <div class="prompt-box">
+            <div class="prompt-text" id="p4">Dynamic low tracking shot following cheerful Argentine children running barefoot through fresh green grass towards a sparkling clear river, bright sun flaring, carefree summer camp vibe, cinematic 60fps.</div>
+            <button class="btn-copy" onclick="copyPrompt('p4', this)">Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOMA 5 -->
+      <div class="card">
+        <div class="media-container">
+          <img src="assets/toma5.jpg" alt="Toma 5" onerror="this.parentNode.innerHTML='<span>Toma 5: Preview Pendiente</span>'">
+        </div>
+        <div class="card-content">
+          <div class="scene-header">
+            <span class="scene-num">Toma 05: Sapito en el Agua</span>
+            <span class="timestamp">0:34 - 0:42</span>
+          </div>
+          <div class="lyrics">"...el sol nos brinda calor, el río nos habla, oh oh oh oh."</div>
+          <div class="action">Sentados en piedras redondas haciendo rebotar piedras en el río que refleja destellos de sol.</div>
+          <div class="prompt-box">
+            <div class="prompt-text" id="p5">Cinematic low-angle shot, Argentine children kneeling on smooth river stones at a sunny riverbank, skipping flat pebbles across calm sparkling water, warm golden lens flare, crystal ripples.</div>
+            <button class="btn-copy" onclick="copyPrompt('p5', this)">Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOMA 6 -->
+      <div class="card">
+        <div class="media-container">
+          <img src="assets/toma6.jpg" alt="Toma 6" onerror="this.parentNode.innerHTML='<span>Toma 6: Preview Pendiente</span>'">
+        </div>
+        <div class="card-content">
+          <div class="scene-header">
+            <span class="scene-num">Toma 06: Las Aves</span>
+            <span class="timestamp">0:42 - 0:50</span>
+          </div>
+          <div class="lyrics">"Al aire libre, las aves con su color..."</div>
+          <div class="action">Contrapicado de los chicos mirando y señalando las copas de los árboles mientras vuelan pájaros autóctonos.</div>
+          <div class="prompt-box">
+            <div class="prompt-text" id="p6">Low-angle cinematic tracking shot of Argentine boys and girls looking up into tall leafy trees with joyful wonder, pointing at colorful local birds flying across the sunlit blue sky, natural light flare.</div>
+            <button class="btn-copy" onclick="copyPrompt('p6', this)">Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOMA 7 -->
+      <div class="card">
+        <div class="media-container">
+          <img src="assets/toma7.jpg" alt="Toma 7" onerror="this.parentNode.innerHTML='<span>Toma 7: Preview Pendiente</span>'">
+        </div>
+        <div class="card-content">
+          <div class="scene-header">
+            <span class="scene-num">Toma 07: La Ronda</span>
+            <span class="timestamp">0:50 - 0:56</span>
+          </div>
+          <div class="lyrics">"Hagamos una ronda, oh oh oh oh..."</div>
+          <div class="action">Giro circular de cámara alrededor de la ronda de niños cantando y bailando frente a las carpas.</div>
+          <div class="prompt-box">
+            <div class="prompt-text" id="p7">Dynamic 360-degree rotating camera shot of a diverse circle of Argentine boys and girls holding hands, spinning and singing on green grass next to camp tents by the river, warm afternoon glow, joyful motion blur.</div>
+            <button class="btn-copy" onclick="copyPrompt('p7', this)">Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOMA 8 -->
+      <div class="card">
+        <div class="media-container">
+          <img src="assets/toma8.jpg" alt="Toma 8" onerror="this.parentNode.innerHTML='<span>Toma 8: Preview Pendiente</span>'">
+        </div>
+        <div class="card-content">
+          <div class="scene-header">
+            <span class="scene-num">Toma 08: Cierre y Atardecer</span>
+            <span class="timestamp">0:56 - 1:00</span>
+          </div>
+          <div class="lyrics">"Acorde final..."</div>
+          <div class="action">Plano general amplio al atardecer; el grupo sentado contemplando el río en calma mientras cae el sol.</div>
+          <div class="prompt-box">
+            <div class="prompt-text" id="p8">Wide peaceful twilight shot of the campsite by the river, gentle breeze, silhouettes of children sitting together on grass, serene golden amber sunset reflection on the water, slow gentle crane up.</div>
+            <button class="btn-copy" onclick="copyPrompt('p8', this)">Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function copyPrompt(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = "¡Copiado!";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.classList.remove("copied");
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
